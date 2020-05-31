@@ -1,0 +1,25 @@
+<h2>My Users</h2>
+<div class="user-list">
+<div class="flex-table users">
+  <div class="flex-row header">
+    <div class="flex-cell id">
+      User id
+    </div>
+    <div class="flex-cell first-name">
+      Name
+    </div>
+  </div>
+  <div *ngFor="let user of users"
+       class="flex-row"
+       (click)="onSelect(user)"
+  >
+    <div class="flex-cell id">
+      {{user.id}}
+    </div>
+    <div class="flex-cell first-name">
+      {{user.firstName}}
+    </div>
+  </div>
+</div>
+</div>
+<app-user-detail [user]="selectedUser"></app-user-detail>
