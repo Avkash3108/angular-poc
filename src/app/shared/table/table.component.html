@@ -1,0 +1,12 @@
+<div class="flex-table {{cssClass}}">
+   <app-header
+       [columnDefs]="columnDefs"
+    >
+    </app-header>
+   <app-table-row
+       *ngFor="let item of data"
+       [columnDefs]="columnDefs"
+       [item]="item"
+  >
+  </app-table-row>
+</div>

@@ -1,0 +1,8 @@
+<div class="flex-row">
+  <div
+    *ngFor="let columnDef of columnDefs"
+    class="flex-cell {{columnDef.cssClass}}"
+  >
+      {{item[columnDef.key]}}
+  </div>
+</div>

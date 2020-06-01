@@ -1,0 +1,15 @@
+<div class="flex-row header">
+  <div
+    *ngFor="let columnDef of columnDefs"
+    class="flex-cell {{columnDef.cssClass}}"
+  >
+      {{columnDef.headerTitle}}
+      <app-sort-header
+          *ngIf="columnDef.sortable"
+           [sortBy]="columnDef.key"
+      >
+      </app-sort-header>
+  </div>
+</div>
+
+

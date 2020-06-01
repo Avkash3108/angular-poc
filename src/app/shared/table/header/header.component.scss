@@ -1,0 +1,60 @@
+ @import  'variables';
+        .flex-row {
+            display: flex;
+            flex-flow: row nowrap;
+
+            &.header {
+                .flex-cell {
+                    background: $table-header;
+                    border-top: solid 1px $table-border;
+                    color: $white;
+                }
+            }
+        }
+        .flex-cell {
+            border-bottom: solid 1px $table-border;
+            border-right: solid 1px $table-border;
+            display: flex;
+            flex-flow: row nowrap;
+            padding: 0.5em 0.5em;
+            width: calc(100% / 4);
+
+            &.checkbox {
+                width: 60px
+            }
+
+            &:hover {
+                background: #f5f5f5;
+                transition: 500ms;
+            }
+
+            &.sno {
+                width: 60px;
+            }
+            &.header {
+                background: $table-header;
+                border-top: solid 1px $table-border;
+                color: $white;
+            }
+        }
+
+            .id {
+              width: 100px;
+            }
+
+            .last-name,
+            .first-name {
+                width: 220px;
+            }
+
+            .e-mail {
+                width: 250px;
+            }
+
+            .address {
+                width: 250px;
+            }
+
+            .contact {
+                width: 250px;
+            }
