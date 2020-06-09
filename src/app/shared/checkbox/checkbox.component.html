@@ -1,0 +1,18 @@
+    <div class="react-checkbox {{class}}">
+        <input
+            [value]="value"
+            [checked]="checked"
+            id="{{id}}"
+            class="hidden-checkbox"
+            type="checkbox"
+            (change)="onChangeCheckbox($event)"
+        />
+        <label for="{{id}}" class="{{checked ? 'style-checkbox checked' : 'style-checkbox'}}">
+            <svg
+                class="icon-checked"
+                viewBox='0 0 24 24'
+            >
+                <polyline points='20 6 9 17 4 12'/>
+            </svg>
+        </label>
+    </div>

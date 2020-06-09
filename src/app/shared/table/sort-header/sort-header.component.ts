@@ -9,17 +9,17 @@ import { TableService } from '../../../services/table.service';
 export class SortHeaderComponent implements OnInit {
 
   @Input() sortBy: string;
-  sortOrder: string = '';
+  sortOrder = '';
   constructor(public tableService: TableService) { }
 
   ngOnInit(): void {
-        this.tableService.currentSort$.subscribe(sort => {
-         this.sortOrder = sort.sortBy === this.sortBy ? sort.sortOrder: '';
+        this.tableService.getSort().subscribe(sort => {
+         this.sortOrder = sort.sortBy === this.sortBy ? sort.sortOrder : '';
       });
   }
 
   setSorting() {
-      this.tableService.setSorting(this.sortBy)
+      this.tableService.setSorting(this.sortBy);
   }
 
 }

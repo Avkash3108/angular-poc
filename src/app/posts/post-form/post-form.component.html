@@ -1,0 +1,41 @@
+<nav>
+    <a routerLink="/posts">posts</a>
+  </nav>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <label class="form-label">
+      Title:
+      <input type="text" formControlName="title" required>
+    </label>
+  <div *ngIf="postForm.controls.title.invalid && (postForm.controls.title.dirty || postForm.controls.title.touched)"
+      class="error">
+  
+    <div *ngIf="postForm.controls.title.errors.required">
+      Title is required.
+    </div>
+  </div>
+    <label class="form-label">
+        Category:
+        <input type="text" formControlName="category">
+    </label>
+  <div *ngIf="postForm.controls.category.invalid && (postForm.controls.category.dirty || postForm.controls.category.touched)"
+      class="error">
+  
+    <div *ngIf="postForm.controls.category.errors.required">
+      category is required.
+    </div>
+  </div>
+    <label class="form-label">
+        Description:
+        <textarea rows="4" cols="50" formControlName="description"></textarea>
+    </label>
+  <div *ngIf="postForm.controls.description.invalid && (postForm.controls.description.dirty || postForm.controls.description.touched)"
+      class="error">
+  
+    <div *ngIf="postForm.controls.description.errors.required">
+      description is required.
+    </div>
+  </div>
+
+    <button type="submit" [disabled]="!postForm.valid">Submit</button>
+  </form>
+  

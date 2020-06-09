@@ -1,5 +1,7 @@
+<nav>
+  <a routerLink="/users">users</a>
+</nav>
 <div *ngIf="user">
-
   <h2>{{user.firstName | uppercase}} Details</h2>
   <div><span>id: </span>{{user.id}}</div>
   <div>
@@ -7,5 +9,4 @@
       <input [(ngModel)]="user.firstName" placeholder="name"/>
     </label>
   </div>
-
 </div>

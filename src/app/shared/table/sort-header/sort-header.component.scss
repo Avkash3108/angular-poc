@@ -1,0 +1,7 @@
+.sortable-icons {
+    cursor: pointer;
+
+    &.asc {
+        transform: rotate(180deg);
+    }
+}

@@ -11,11 +11,10 @@ export class TableComponent implements OnInit {
   @Input() data: any;
 
   getTableData(): [] {
-      return
+      return;
   }
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

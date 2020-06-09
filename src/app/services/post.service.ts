@@ -4,22 +4,22 @@ import { ajax } from 'rxjs/ajax';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoadingIndicatorService } from './loading-indicator.service';
 import { TableService } from './table.service';
-import { User } from '../user';
+import { Post } from '../post';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-private _pageLimite = 100;
-private usersUrl = 'users';
+export class PostService {
+    private _pageLimite = 100;
+private postUrl = 'posts';
 
   constructor(private tableService: TableService, private http: HttpClient, private loadingIndicatorService: LoadingIndicatorService) { }
 
-  deleteSelectedUsers(selectedUsers): Observable<{}> {
-      const selectedUsersIds = selectedUsers.join(',');
+  deleteSelectedPosts(selectedPosts): Observable<{}> {
+      const selectedPostsIds = selectedPosts.join(',');
       this.loadingIndicatorService.show();
       const ajaxCall = {
-          url: `${this.usersUrl}/${selectedUsersIds}`,
+          url: `${this.postUrl}/${selectedPostsIds}`,
           method: 'DELETE',
           headers: {
           'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ private usersUrl = 'users';
       };
       return ajax(ajaxCall);
   }
-  getUsers(sort, search): Observable<User[]> {
+  getPosts(sort, search): Observable<Post[]> {
       const queryObject = {
             _limit: this._pageLimite,
             _order: sort.sortOrder,
@@ -37,24 +37,24 @@ private usersUrl = 'users';
         };
       const query = this.tableService.buildQueryString(queryObject);
       this.loadingIndicatorService.show();
-      return this.http.get<User[]>(`${this.usersUrl}${query}`);
+      return this.http.get<Post[]>(`${this.postUrl}${query}`);
   }
 
-  getUser(id): Observable<User> {
-      const url = `${this.usersUrl}/${id}`;
+  getPost(id): Observable<Post> {
+      const url = `${this.postUrl}/${id}`;
       this.loadingIndicatorService.show();
-      return this.http.get<User>(url);
+      return this.http.get<Post>(url);
   }
 
-  addUser(user): Observable<{}> {
-      const url = `${this.usersUrl}`;
+  addPost(post): Observable<{}> {
+      const url = `${this.postUrl}`;
       this.loadingIndicatorService.show();
-      return this.http.post<User>(url, user);
+      return this.http.post<Post>(url, post);
   }
 
-  updateUser(user): Observable<{}> {
-      const url = `${this.usersUrl}/${user.id}`;
+  updatePost(post): Observable<{}> {
+      const url = `${this.postUrl}/${post.id}`;
       this.loadingIndicatorService.show();
-      return this.http.put<User>(url, user);
+      return this.http.put<Post>(url, post);
   }
 }

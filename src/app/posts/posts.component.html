@@ -1,5 +1,6 @@
-<h2>My Users</h2>
-<div class="user-list">
+<h2>My Posts</h2>
+
+<div class="post-list">
       <div class="filter">
         Search
         <input
@@ -11,21 +12,21 @@
         <button
             class="btn btn-delete"
             [disabled]="selectedRows.length <= 0"
-            (click)="deleteSelectedUsers()"
+            (click)="deleteSelectedPosts()"
         >
           Delete
       </button>
-        <button
-            [routerLink]="'/user/add-user'"
-            class="btn btn-link btn-add"
-        >
-          Add User
-        </button>
+      <button
+      [routerLink]="'/post/add-post'"
+      class="btn btn-link btn-add"
+  >
+    Add Post
+  </button>
     </div>
 
 <app-table
-    [cssClass]="users"
+    [cssClass]="posts"
     [columnDefs]="columnDefs"
-    [data]="users"
+    [data]="posts"
 ></app-table>
 </div>

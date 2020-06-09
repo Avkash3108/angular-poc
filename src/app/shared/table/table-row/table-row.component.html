@@ -1,8 +1,19 @@
 <div class="flex-row">
+  <div class="flex-cell table-select">
+    <app-checkbox
+        [checked]="checked"
+        [id]="item.id"
+        [value]="item.id"
+        (onChange)="onSelect($event)"
+    >
+    </app-checkbox>
+  </div>
   <div
     *ngFor="let columnDef of columnDefs"
     class="flex-cell {{columnDef.cssClass}}"
   >
-      {{item[columnDef.key]}}
+
+      <span *ngIf="!columnDef.hasAction">{{item[columnDef.key]}}</span>
+      <a *ngIf="columnDef.hasAction" class="edit" (click)="columnDef.onEdit(item.id)">Edit</a>
   </div>
 </div>

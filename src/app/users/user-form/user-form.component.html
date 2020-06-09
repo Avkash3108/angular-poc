@@ -1,0 +1,50 @@
+<nav>
+  <a routerLink="/users">users</a>
+</nav>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label class="form-label">
+    First Name:
+    <input type="text" formControlName="firstName" required>
+  </label>
+<div *ngIf="userForm.controls.firstName.invalid && (userForm.controls.firstName.dirty || userForm.controls.firstName.touched)"
+    class="error">
+
+  <div *ngIf="userForm.controls.firstName.errors.required">
+    First Name is required.
+  </div>
+</div>
+  <label class="form-label">
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+  <label class="form-label">
+      Address:
+      <input type="text" formControlName="address">
+  </label>
+<div *ngIf="userForm.controls.address.invalid && (userForm.controls.address.dirty || userForm.controls.address.touched)"
+    class="error">
+
+  <div *ngIf="userForm.controls.address.errors.required">
+    Address is required.
+  </div>
+</div>
+  <label class="form-label">
+      E-Mail:
+      <input type="text" formControlName="email">
+  </label>
+<div *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
+    class="error">
+
+  <div *ngIf="userForm.controls.email.errors.required">
+    Email is required.
+  </div>
+  <div *ngIf="userForm.controls.email.errors.email">
+    Please enter valid email id.
+  </div>
+</div>
+  <label class="form-label">
+      Contact:
+      <input type="text" formControlName="contact">
+  </label>
+  <button type="submit" [disabled]="!userForm.valid">Submit</button>
+</form>

@@ -1,4 +1,10 @@
  @import  'variables';
+.sortable-icon-container {
+  margin-left: auto;
+}
+.edit {
+  cursor: pointer
+}
         .flex-row {
             display: flex;
             flex-flow: row nowrap;
@@ -58,3 +64,20 @@
             .contact {
                 width: 250px;
             }
+.table-select {
+  width: 50px;
+}
+.table-actions {
+  width: 50px;
+}
+.post-title {
+  width: 250px
+}
+
+.post-category {
+  width: 100px
+}
+
+.post-owner {
+  width: 100px
+}

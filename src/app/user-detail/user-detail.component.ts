@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { LoadingIndicatorService } from '../services/loading-indicator.service'
+import { LoadingIndicatorService } from '../services/loading-indicator.service';
 import { UserService } from '../services/user.service';
 import { User } from '../user';
 
@@ -25,11 +25,11 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUser(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id)
       .subscribe(user => {
           this.loadingIndicatorService.hide();
-          this.user = user
+          this.user = user;
       });
   }
 }

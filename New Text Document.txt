@@ -1,0 +1,5 @@
+https://medium.com/claritydesignsystem/four-ways-of-listening-to-dom-events-in-angular-part-2-hostlistener-1b66d45b3e3d#:~:text=%40HostListener%20is%20Angular's%20decorator%20method,once%20the%20directive%20gets%20destroyed.
+https://www.freecodecamp.org/news/angular-directives-learn-how-to-use-or-create-custom-directives-in-angular-c9b133c24442/
+https://codesandbox.io/s/kw7q12q9zr?file=/src/app/directives/sticky-header.directive.ts
+https://coderspirit.com/angular/angular-8-infinite-scroll-example-using-ngx-infinite-scroll/
+https://fireship.io/lessons/sharing-data-between-angular-components-four-methods/

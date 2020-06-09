@@ -12,7 +12,6 @@ export class LoadingIndicatorComponent implements OnInit {
 
 
   ngOnInit(): void {
-      console.log(this.loadingIndicatorService.show())
   }
 
 }
