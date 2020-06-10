@@ -10,8 +10,8 @@ import { Post } from '../post';
   providedIn: 'root'
 })
 export class PostService {
-    private _pageLimite = 100;
-private postUrl = 'posts';
+  private _pageLimite = 100;
+  private postUrl = 'posts';
 
   constructor(private tableService: TableService, private http: HttpClient, private loadingIndicatorService: LoadingIndicatorService) { }
 
@@ -27,7 +27,7 @@ private postUrl = 'posts';
       };
       return ajax(ajaxCall);
   }
-  getPosts(sort, search): Observable<Post[]> {
+  getPosts(sort, search: string): Observable<Post[]> {
       const queryObject = {
             _limit: this._pageLimite,
             _order: sort.sortOrder,

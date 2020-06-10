@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./posts.component.scss'],
   providers: [TableService]
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
   search = '';
   selectedRows = [];
   disableDelete = true;
@@ -22,6 +22,16 @@ export class PostsComponent implements OnInit {
   cssClass = 'posts';
   posts: Post[];
   columnDefs = [
+    {
+      sortable: false,
+      headerTitle: '',
+      cssClass: 'table-select',
+      key: 'selected',
+      checkboxColumn: true,
+      onChangeSelection: ($event) => {
+        this.setSelectedPosts($event.target.checked, $event.target.value);
+      }
+  },
       {
           sortable: true,
           headerTitle: 'Post Id',
@@ -51,7 +61,8 @@ export class PostsComponent implements OnInit {
           sortable: false,
           headerTitle: 'Actions',
           cssClass: 'table-actions',
-          onEdit: (id: any) => {this.router.navigateByUrl(`/post/${id}`); }
+          onEdit: (id: any) => {this.router.navigateByUrl(`/post/${id}`);},
+          onDelete: (id: any) => {this.deletePosts([id])}
       }
   ];
 
@@ -66,48 +77,58 @@ export class PostsComponent implements OnInit {
   ngOnInit() {
 
     this.tableService.getSort().subscribe(sort => {
-        this.sort = sort;
+        this.sort = sort
         this.getPosts();
     });
-    this.tableService.getSelectedRows().subscribe(selectedPosts => {
-        this.setSelectedPosts(selectedPosts);
-    });
-
-    // this.getPosts();
   }
 
+  setDeleteButton() {
+    this.disableDelete = !this.posts.some((post) =>{
+      return post.selected
+    });
+   }
   getPosts(): void {
       this.postService.getPosts(this.sort, this.search).subscribe(posts => {
          this.loadingIndicatorService.hide();
-         this.posts = posts;
+         this.posts = posts.map((post) => {
+          post.selected = false;
+          return post;
+        });
       });
   }
 
-  deleteSelectedPosts() {
-      this.postService.deleteSelectedPosts(this.selectedRows).subscribe(response => {
+  deletePosts(selectedPosts) {
+      this.postService.deleteSelectedPosts(selectedPosts).subscribe(response => {
         this.loadingIndicatorService.hide();
         this.posts = this.posts.filter((post) => {
-            return this.selectedRows.indexOf(post.id.toString()) === -1;
+            return selectedPosts.indexOf(post.id) === -1;
         });
+        this.setDeleteButton();
         const alert = new Alert();
         alert.autoClose = false;
         alert.id = 'RECORDS_DELETED';
-        alert.message = `${this.selectedRows.length} record(s) has been deleted.`;
+        alert.message = `${selectedPosts.length} record(s) has been deleted.`;
         this.alertService.showAlert(alert);
-        this.tableService.clearSelectedRows();
 
     });
   }
-
- setSelectedPosts(selectedRows): void {
-  this.selectedRows = Object.keys(selectedRows).reduce((acc, selectedRowId) => {
-        const selectedRow = selectedRows[selectedRowId];
-        if (selectedRow && acc.indexOf(selectedRowId) === -1) {
-            acc.push(selectedRowId);
-        }
-        return acc;
+  deleteSelectedPosts() {
+    const selectedPosts = this.posts.reduce((acc, post) => {
+      if(post.selected) {
+        acc.push(post.id)
+      }
+      return acc;
     }, []);
+    this.deletePosts(selectedPosts);
   }
+
+  setSelectedPosts(checked, id): void {
+    const post = this.posts.find((post) => {
+      return post.id.toString() === id;
+    });
+    post ? post.selected = checked : '';
+    this.setDeleteButton();
+   }
   onSearch(searchVal) {
     this.getPosts();
   }

@@ -15,7 +15,7 @@ import { Alert } from '../alert';
   styleUrls: ['./users.component.scss'],
   providers: [TableService]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   search = '';
   selectedRows = [];
   disableDelete = true;
@@ -23,6 +23,16 @@ export class UsersComponent implements OnInit {
   cssClass = 'users';
   users: User[];
   columnDefs = [
+    {
+      sortable: false,
+      headerTitle: '',
+      cssClass: 'table-select',
+      key: 'selected',
+      checkboxColumn: true,
+      onChangeSelection: ($event) => {
+        this.setSelectedUsers($event.target.checked, $event.target.value);
+      }
+  },
       {
           sortable: true,
           headerTitle: 'First Name',
@@ -46,7 +56,8 @@ export class UsersComponent implements OnInit {
           sortable: false,
           headerTitle: 'Actions',
           cssClass: 'table-actions',
-          onEdit: (id) => {this.router.navigateByUrl(`/user/${id}`); }
+          onEdit: (id: any) => {this.router.navigateByUrl(`/user/${id}`); },
+          onDelete: (id: any) => {this.deleteUsers([id])}
       }
   ];
 
@@ -64,43 +75,54 @@ export class UsersComponent implements OnInit {
         this.sort = sort;
         this.getUsers();
     });
-    this.tableService.getSelectedRows().subscribe(selectedUsers => {
-        this.setSelectedUsers(selectedUsers);
-    });
-
-    // this.getUsers();
   }
 
   getUsers(): void {
       this.userService.getUsers(this.sort, this.search).subscribe(users => {
          this.loadingIndicatorService.hide();
-         this.users = users;
+         this.disableDelete = true;
+         this.users = users.map((user) => {
+           user.selected = false;
+           return user;
+         });
       });
   }
 
+  deleteUsers(selectedUsers) {
+    this.userService.deleteSelectedUsers(selectedUsers).subscribe(response => {
+      this.loadingIndicatorService.hide();
+      this.users = this.users.filter((user) => {
+          return selectedUsers.indexOf(user.id) === -1;
+      });
+      this.setDeleteButton();
+      const alert = new Alert();
+      alert.id = 'RECORDS_DELETED';
+      alert.message = `${selectedUsers.length} record(s) has been deleted.`;
+      this.alertService.showAlert(alert);
+  });
+}
   deleteSelectedUsers() {
-      this.userService.deleteSelectedUsers(this.selectedRows).subscribe(response => {
-        this.loadingIndicatorService.hide();
-        this.users = this.users.filter((user) => {
-            return this.selectedRows.indexOf(user.id.toString()) === -1;
-        });
-        const alert = new Alert();
-        alert.id = 'RECORDS_DELETED';
-        alert.message = `${this.selectedRows.length} record(s) has been deleted.`;
-        this.alertService.showAlert(alert);
-        this.tableService.clearSelectedRows();
-
-    });
-  }
-
- setSelectedUsers(selectedRows): void {
-  this.selectedRows = Object.keys(selectedRows).reduce((acc, selectedRowId) => {
-        const selectedRow = selectedRows[selectedRowId];
-        if (selectedRow && acc.indexOf(selectedRowId) === -1) {
-            acc.push(selectedRowId);
+      const selectedUsers = this.users.reduce((acc, user) => {
+        if(user.selected) {
+          acc.push(user.id)
         }
         return acc;
-    }, []);
+      }, []);
+      this.deleteUsers(selectedUsers);
+  }
+
+ setDeleteButton() {
+  this.disableDelete = !this.users.some((user) =>{
+    return user.selected
+  });
+ }
+
+ setSelectedUsers(checked, id): void {
+   const user = this.users.find((user) => {
+     return user.id.toString() === id;
+   });
+   user ? user.selected = checked : '';
+   this.setDeleteButton();
   }
   onSearch(searchVal) {
     this.getUsers();

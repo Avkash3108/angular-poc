@@ -11,20 +11,13 @@ export class TableService {
      sortOrder: ''
   };
 
-  selectedRows = {};
   constructor() {
   }
-  private _sortSubject = new BehaviorSubject(this.sort);
-  private _sortObservable$ = this._sortSubject.asObservable();
-  private _selectedRowsSubject = new BehaviorSubject(this.selectedRows);
-  private _selectedRowsObservable$ = this._selectedRowsSubject.asObservable();
+  private sortSubject = new BehaviorSubject(this.sort);
+  private sortObservable$ = this.sortSubject.asObservable();
 
   getSort() {
-      return this._sortObservable$;
-  }
-
-  getSelectedRows() {
-      return this._selectedRowsObservable$;
+      return this.sortObservable$;
   }
 
   setSorting(sortBy: string) {
@@ -34,7 +27,7 @@ export class TableService {
           this.sort.sortBy = sortBy;
           this.sort.sortOrder = 'ASC';
       }
-      this._sortSubject.next(this.sort);
+      this.sortSubject.next(this.sort);
   }
 
    resetSort() {
@@ -43,18 +36,6 @@ export class TableService {
            sortOrder: ''
        };
    }
-  clearSelectedRows() {
-      this.selectedRows = {};
-      this._selectedRowsSubject.next(this.selectedRows);
-  }
-  setSelectedRows(selected, value) {
-       this.selectedRows = {
-           ...this.selectedRows,
-           ...{[`${value}`]: selected}
-
-       };
-       this._selectedRowsSubject.next(this.selectedRows);
-  }
 
 isValid(value) {
     return value !== undefined && value !== null && value !== '';

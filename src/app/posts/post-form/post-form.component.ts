@@ -49,7 +49,7 @@ onSubmit() {
 
 addPost() {
     this.postService.addPost(this.postForm.value).subscribe(users => {
-         console.log('ADD post')
+         console.log('ADD post');
          this.loadingIndicatorService.hide();
          this.postForm.reset();
          const alert = new Alert();

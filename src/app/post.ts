@@ -4,4 +4,5 @@ export interface Post {
   ownerId: string;
   category: string;
   id: number;
+  selected ?: boolean;
 }

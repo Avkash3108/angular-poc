@@ -1,14 +1,12 @@
 .user-list,
 .post-list
  {
-  width: 74%;
-
+  width: 80%;
+  margin: auto;
   .filter {
       input {
          margin-right: 5px;
       }
-
-      float: right;
       padding-bottom: 5px;
   }
   .btn {
@@ -16,9 +14,6 @@
   }
 }
 
-.post-list {
-  width: 55%;
-}
 .btn {
   cursor: pointer;
   display: inline-block;
@@ -32,9 +27,7 @@
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
     font-size: 1rem;
-    line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 
@@ -75,7 +68,11 @@ input {
   font-size: 1em;
   padding-left: .4em;
 }
-
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
 button {
   font-family: Arial;
   background-color: #eee;

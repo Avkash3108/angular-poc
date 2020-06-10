@@ -10,7 +10,7 @@
         />
         <button
             class="btn btn-delete"
-            [disabled]="selectedRows.length <= 0"
+            [disabled]="disableDelete"
             (click)="deleteSelectedUsers()"
         >
           Delete

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,8 +19,7 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { AlertsComponent } from './shared/alerts/alerts.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostFormComponent } from './posts/post-form/post-form.component';
-import { TableService } from './services/table.service'
-;
+import { TableService } from './services/table.service';
 @NgModule({
   declarations: [
     AppComponent,

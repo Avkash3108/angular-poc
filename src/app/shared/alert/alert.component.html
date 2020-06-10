@@ -1,7 +1,9 @@
 <div *ngIf="alert.isOpen" class="alert {{getAlertClass()}}" role="alert">
   <div *ngIf="alert.blockUser" class="alert-block-screen"></div>
-  {{alert.message}}
-  <button
+  <div class="alert-body">
+    <div class= "alert-message">{{alert.message}}</div>
+   <div>
+    <a
     *ngIf="alert.dismissible"
     type="button"
     class="close"
@@ -9,6 +11,8 @@
     aria-label="Close"
     (click)="closeAlert()"
    >
-    <span aria-hidden="true">×</span>
-  </button>
+    X
+   </a>
+   </div>
+  </div>
 </div>
