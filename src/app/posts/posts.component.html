@@ -1,5 +1,10 @@
 <h2>My Posts</h2>
-
+<nav>
+  <a routerLink="/posts">posts</a>
+</nav>
+<nav>
+  <a routerLink="/users">users</a>
+</nav>
 <div class="post-list">
       <div class="filter">
         Search
@@ -25,7 +30,7 @@
     </div>
 
 <app-table
-    [cssClass]="posts"
+    cssClass="posts"
     [columnDefs]="columnDefs"
     [data]="posts"
 ></app-table>

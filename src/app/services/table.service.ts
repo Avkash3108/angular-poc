@@ -36,17 +36,4 @@ export class TableService {
            sortOrder: ''
        };
    }
-
-isValid(value) {
-    return value !== undefined && value !== null && value !== '';
-}
-  buildQueryString(queryObject) {
-    const queryparams = Object.keys(queryObject);
-
-    const query = queryparams.reduce((acc, param) => {
-        return this.isValid(queryObject[param]) ? acc.concat(`${param}=${queryObject[param]}`) : acc;
-    }, []);
-
-    return query.length ? `?${query.join('&')}` : '';
-}
 }

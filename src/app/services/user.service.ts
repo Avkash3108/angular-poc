@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoadingIndicatorService } from './loading-indicator.service';
-import { TableService } from './table.service';
+import { QueryService } from './query.service';
 import { User } from '../user';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UserService {
 private _pageLimite = 100;
 private usersUrl = 'users';
 
-  constructor(private tableService: TableService, private http: HttpClient, private loadingIndicatorService: LoadingIndicatorService) { }
+  constructor(private queryService: QueryService, private http: HttpClient, private loadingIndicatorService: LoadingIndicatorService) { }
 
   deleteSelectedUsers(selectedUsers): Observable<{}> {
       const selectedUsersIds = selectedUsers.join(',');
@@ -35,7 +35,8 @@ private usersUrl = 'users';
             _sort: sort.sortBy,
             q: search
         };
-      const query = this.tableService.buildQueryString(queryObject);
+
+      const query = this.queryService.buildQueryString(queryObject);
       this.loadingIndicatorService.show();
       return this.http.get<User[]>(`${this.usersUrl}${query}`);
   }

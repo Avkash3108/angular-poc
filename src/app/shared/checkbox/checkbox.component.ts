@@ -20,7 +20,6 @@ export class CheckboxComponent implements OnInit {
   }
 
   onChangeCheckbox($event) {
-    this.checked = $event.target.checked
     this.onChange.emit($event);
   }
 }

@@ -45,7 +45,7 @@ import { TableService } from './services/table.service';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [TableService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

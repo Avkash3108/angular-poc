@@ -15,6 +15,7 @@ export class AlertService {
   getAlerts() {
       return this.alertObservable$;
   }
+  
   showAlert(alert: Alert) {
       alert.isOpen = true;
       this.alerts.push(alert);

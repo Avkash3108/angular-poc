@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../services/user.service';
@@ -15,12 +15,12 @@ import { Alert } from '../alert';
   styleUrls: ['./users.component.scss'],
   providers: [TableService]
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersComponent implements OnInit, OnDestroy, OnChanges {
   search = '';
   selectedRows = [];
   disableDelete = true;
   sort: Sort;
-  cssClass = 'users';
+  cssClass = 'users-table';
   users: User[];
   columnDefs = [
     {
@@ -70,7 +70,11 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ) { }
 
+  ngOnChanges(changes: SimpleChanges) {
+console.log('ng on changes')
+  }
   ngOnInit() {
+    console.log('ng on init')
     this.tableService.getSort().subscribe(sort => {
         this.sort = sort;
         this.getUsers();
